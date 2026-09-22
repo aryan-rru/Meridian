@@ -1,0 +1,17 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.1 [39m[90mC:/D/VS Code/cyber/frontend[39m
+
+ [32m✓[39m src/config/__tests__/env.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/api/__tests__/client.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/ProtectedRoute.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 327[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/WorkspaceSwitcher.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 487[2mms[22m[39m
+ [32m✓[39m src/components/layout/__tests__/AppLayout.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 601[2mms[22m[39m
+   [32m✓[39m AppLayout [2m(3)[22m
+     [33m[2m✓[22m[39m renders the brand, navigation items, and current user info[33m 481[2mms[22m[39m
+ [32m✓[39m src/__tests__/AppRouting.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 981[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m6 passed[39m[22m[90m (6)[39m
+[2m      Tests [22m [1m[32m35 passed[39m[22m[90m (35)[39m
+[2m   Start at [22m 18:45:12
+[2m   Duration [22m 5.05s[2m (environment 67%, tests 11%, setup 9%, import 7%, transform 5%, worker 1%)[22m
+

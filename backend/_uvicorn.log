@@ -1,0 +1,3 @@
+2026-09-20 17:02:05,581 INFO     throughline: Throughline API starting. Frontend origin: http://localhost:5173
+2026-09-20 17:02:05,581 WARNING  throughline: Google OAuth is not configured — sign-in and Drive features are disabled. See README §Google Cloud Setup.
+2026-09-20 17:02:05,582 WARNING  throughline: DEV_LOGIN_ENABLED is true. Never do this outside local development.
