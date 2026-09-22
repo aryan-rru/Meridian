@@ -26,6 +26,7 @@ coverage/
 .idea/
 .DS_Store
 Thumbs.db
+.claude/
 
 # Build artefacts
 /backend/exports/
