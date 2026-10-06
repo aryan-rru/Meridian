@@ -2,11 +2,14 @@ import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 import { ShieldCheck, HardDrive, CheckCircle2, ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { authApi } from "../api/auth";
+import { useState } from "react";
 
 export function Login() {
-  const { isAuthenticated, isLoading, error } = useAuth();
+  const { isAuthenticated, isLoading, error, refresh } = useAuth();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const [isDevLoggingIn, setIsDevLoggingIn] = useState(false);
+  const [devLoginError, setDevLoginError] = useState<string | null>(null);
 
   if (isLoading) {
     return (
@@ -31,10 +34,23 @@ export function Login() {
         ? "Google sign-in could not be completed. Please try again."
         : error
           ? "We could not verify your session. Please try signing in again."
-          : null;
+          : devLoginError || null;
 
   const handleGoogleLogin = () => {
     window.location.href = authApi.getGoogleLoginUrl();
+  };
+
+  const handleDevLogin = async () => {
+    setIsDevLoggingIn(true);
+    setDevLoginError(null);
+    try {
+      await authApi.devLogin();
+      await refresh();
+    } catch (err: any) {
+      setDevLoginError(err?.message || "Dev login failed. Check if DEV_LOGIN_ENABLED is true on the backend.");
+    } finally {
+      setIsDevLoggingIn(false);
+    }
   };
 
   return (
@@ -71,10 +87,30 @@ export function Login() {
               {errorMessage}
             </p>
           )}
+          
+          <button
+            type="button"
+            className="google-signin-btn"
+            onClick={handleDevLogin}
+            disabled={isDevLoggingIn}
+            style={{ background: "#34A853", color: "white" }}
+          >
+            <ShieldCheck size={20} />
+            <span>{isDevLoggingIn ? "Signing in..." : "Demo Login (Try the App)"}</span>
+            <ArrowRight size={16} className="btn-arrow" />
+          </button>
+
+          <p style={{ fontSize: "14px", color: "#94a3b8", textAlign: "center", margin: "16px 0" }}>
+            Click above to explore with sample data
+          </p>
+
+          {/* Temporarily hidden until Google OAuth is approved
           <button
             type="button"
             className="google-signin-btn"
             onClick={handleGoogleLogin}
+            style={{ marginTop: "8px", opacity: 0.5 }}
+            disabled
           >
             <svg className="google-icon" viewBox="0 0 24 24" width="20" height="20">
               <path
@@ -94,17 +130,17 @@ export function Login() {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
               />
             </svg>
-            <span>Sign in with Google</span>
+            <span>Sign in with Google (Coming Soon)</span>
             <ArrowRight size={16} className="btn-arrow" />
           </button>
+          */}
         </div>
 
         <div className="login-permissions-info">
-          <p className="permissions-title">Permissions requested:</p>
+          <p className="permissions-title">About this demo:</p>
           <p className="permissions-body">
-            Identity verification (name, email) and Google Drive file access for
-            evidence workbooks you explicitly select. We never alter files outside
-            Meridian.
+            Explore a pre-loaded workspace with ISO 27001, SOC 2, and NIST CSF frameworks,
+            sample controls, risk assessments, and evidence tracking. All data is shared for demonstration purposes.
           </p>
         </div>
       </div>
