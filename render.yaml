@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: meridian-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install -e ."
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        sync: false  # You'll set this manually in Render dashboard
+      - key: APP_SECRET
+        sync: false
+      - key: TOKEN_ENCRYPTION_KEY
+        sync: false
+      - key: FRONTEND_URL
+        value: https://your-frontend.vercel.app  # Update after Vercel deploy
+      - key: BACKEND_URL
+        sync: false  # Will be auto-set to your onrender.com URL
+      - key: SESSION_COOKIE_SECURE
+        value: true
+      - key: DEV_LOGIN_ENABLED
+        value: true
+      - key: DEV_LOGIN_EMAIL
+        value: demo@meridian.local
+      - key: GOOGLE_CLIENT_ID
+        value: ""  # Optional - leave empty if not using Google OAuth
+      - key: GOOGLE_CLIENT_SECRET
+        value: ""
