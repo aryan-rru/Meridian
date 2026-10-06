@@ -36,10 +36,6 @@ export function Login() {
           ? "We could not verify your session. Please try signing in again."
           : devLoginError || null;
 
-  const handleGoogleLogin = () => {
-    window.location.href = authApi.getGoogleLoginUrl();
-  };
-
   const handleDevLogin = async () => {
     setIsDevLoggingIn(true);
     setDevLoginError(null);
